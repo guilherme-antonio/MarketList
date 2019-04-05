@@ -38,7 +38,7 @@ public class AddItem extends AppCompatActivity {
     public void createItem(View view){
         if (TextUtils.isEmpty(itemName.getText()))
         {
-            itemName.setError("O campo nome é obrigatório");
+            itemName.setError(getResources().getString(R.string.field_name_is_required));
             return;
         }
 

@@ -23,7 +23,7 @@
     <Button
         android:layout_below="@+id/ItemImage"
         android:layout_width="wrap_content"
-        android:text="Adicionar Item"
+        android:text="@string/add_item"
         android:onClick="createItem"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content" />

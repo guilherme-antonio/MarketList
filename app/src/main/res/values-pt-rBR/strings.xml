@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lista de Mercado</string>
+    <string name="start_list">Iniciar Lista</string>
+    <string name="end_list">Finalizar Lista</string>
+    <string name="add_item">Adicionar Item</string>
+    <string name="field_name_is_required">Campo nome é obrigatório</string>
+</resources>

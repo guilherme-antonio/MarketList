@@ -13,12 +13,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     List<Item> items;
+    List<Item> missingItems;
     ArrayAdapter<Item> adaptador;
     ListView itemsView;
 
@@ -30,25 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         items = new ArrayList<>();
 
-        adaptador = new ArrayAdapter<Item>(MainActivity.this, R.layout.item, items)
-        {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = getLayoutInflater()
-                        .inflate(R.layout.item, parent, false);
+        adaptador = new CustomAdapter(MainActivity.this, R.layout.item, items);
 
-
-                Item item = items.get(position);
-
-                TextView itemName = view.findViewById(R.id.list_item_name);
-                ImageView itemImage = view.findViewById(R.id.list_item_image);
-
-                itemName.setText(item.getName());
-                itemImage.setImageDrawable(item.getImage());
-
-                return view;
-            }
-        };
         itemsView.setAdapter(adaptador);
         itemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -61,20 +46,54 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void createNewItem(View view){
+    public void createNewItem(View view){
         Intent intent = new Intent(this, AddItem.class);
         startActivityForResult(intent, 1);
     }
 
+    public void startList(View view){
+        Intent intent = new Intent(this, ListActivity.class);
+        startActivityForResult(intent, 2);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            if(resultCode == Activity.RESULT_OK){
-                Item newItem = (Item) data.getSerializableExtra("item");
+        switch (requestCode)
+        {
+            case 1:
+                if(resultCode == Activity.RESULT_OK){
+                    Item newItem = (Item) data.getSerializableExtra("item");
 
-                if (Collections.frequency(items, new Item(newItem.getName(), null)) == 0)
-                    adaptador.add(newItem);
-            }
+                    if (Collections.frequency(items, new Item(newItem.getName(), null)) == 0)
+                        adaptador.add(newItem);
+                }
+                break;
+            case 2:
+                if(resultCode == Activity.RESULT_OK){
+                    Item[] missingItems = (Item[]) data.getSerializableExtra("items");
+
+                    items.removeAll(Arrays.asList(missingItems));
+
+                    adaptador.notifyDataSetChanged();
+                }
+
+                break;
         }
+    }
+
+    public void removeItem(View view) {
+        int position = (int) view.getTag();
+
+        Item itemToRemove = items.get(position);
+
+        missingItems.remove(itemToRemove);
+        adaptador.remove(itemToRemove);
+    }
+
+    public void addToMissings(View view) {
+        int position = (int) view.getTag();
+
+        Item missingItem = items.get(position);
+        missingItems.add(missingItem);
     }
 }
