@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         itemsView = findViewById(R.id.items);
 
         items = new ArrayList<>();
+        missingItems = new ArrayList<>();
 
         adaptador = new CustomAdapter(MainActivity.this, R.layout.item, items);
 
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void startList(View view){
         Intent intent = new Intent(this, ListActivity.class);
+        intent.putExtra("items", (Serializable) missingItems);
         startActivityForResult(intent, 2);
     }
 
@@ -70,9 +73,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 2:
                 if(resultCode == Activity.RESULT_OK){
-                    Item[] missingItems = (Item[]) data.getSerializableExtra("items");
+                    ArrayList<Item> removedItems = (ArrayList<Item>) data.getSerializableExtra("items");
 
-                    items.removeAll(Arrays.asList(missingItems));
+                    missingItems.removeAll(removedItems);
 
                     adaptador.notifyDataSetChanged();
                 }

@@ -32,7 +32,9 @@ public class CustomAdapter extends ArrayAdapter<Item> {
         TextView itemName = view.findViewById(R.id.list_item_name);
         ImageView itemImage = view.findViewById(R.id.list_item_image);
         FloatingActionButton itemRemoveButton = view.findViewById(R.id.list_item_remove);
+        FloatingActionButton addToMissing = view.findViewById(R.id.add_to_missing);
 
+        addToMissing.setTag(position);
         itemRemoveButton.setTag(position);
 
         itemName.setText(item.getName());

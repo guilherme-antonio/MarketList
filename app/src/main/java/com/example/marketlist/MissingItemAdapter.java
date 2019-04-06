@@ -26,11 +26,11 @@ public class MissingItemAdapter extends ArrayAdapter<Item> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if(view == null)
-            view = LayoutInflater.from(_context).inflate(R.layout.item,parent,false);
+            view = LayoutInflater.from(_context).inflate(R.layout.missing_item,parent,false);
 
         Item item = getItem(position);
 
-        CheckBox missingItemCheck = view.findViewById(R.id.MissingItemCheck);
+        CheckBox missingItemCheck = view.findViewById(R.id.missing_item_check);
         TextView missingItemName = view.findViewById(R.id.list_item_name);
 
         missingItemCheck.setTag(position);
