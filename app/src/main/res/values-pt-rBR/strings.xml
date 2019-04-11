@@ -5,4 +5,6 @@
     <string name="end_list">Finalizar Lista</string>
     <string name="add_item">Adicionar Item</string>
     <string name="field_name_is_required">Campo nome é obrigatório</string>
+    <string name="items_list_header">Itens</string>
+    <string name="items_missing_list_header">Lista</string>
 </resources>

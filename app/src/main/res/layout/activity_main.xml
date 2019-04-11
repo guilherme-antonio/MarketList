@@ -7,19 +7,28 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/items_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="38dp"
+        android:gravity="center"
+        android:text="@string/items_list_header"/>
 
         <ListView
+            android:layout_below="@+id/items_title"
+            android:layout_above="@+id/startList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/items" />
 
 
     <Button
+        android:id="@+id/startList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:onClick="startList"
-        android:layout_toLeftOf="@+id/addButton"
         android:text="@string/start_list" />
 
     <android.support.design.widget.FloatingActionButton
@@ -27,9 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="createNewItem"
-        android:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_add_black_24dp"
-        android:layout_alignParentBottom="true"
+        app:backgroundTint="@color/colorPrimary"
         android:layout_alignParentRight="true"/>
 
 </RelativeLayout>

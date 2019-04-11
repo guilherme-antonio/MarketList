@@ -37,15 +37,6 @@ public class MainActivity extends AppCompatActivity {
         adaptador = new CustomAdapter(MainActivity.this, R.layout.item, items);
 
         itemsView.setAdapter(adaptador);
-        itemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(view.getContext(), AddItem.class);
-                //intent.putExtra("position", position);
-                intent.putExtra("item", items.get(position));
-                startActivityForResult(intent, 2);
-            }
-        });
     }
 
     public void createNewItem(View view){
@@ -67,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 if(resultCode == Activity.RESULT_OK){
                     Item newItem = (Item) data.getSerializableExtra("item");
 
-                    if (Collections.frequency(items, new Item(newItem.getName(), null)) == 0)
+                    if (Collections.frequency(items, newItem) == 0)
                         adaptador.add(newItem);
                 }
                 break;
@@ -97,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         int position = (int) view.getTag();
 
         Item missingItem = items.get(position);
-        missingItems.add(missingItem);
+        if (Collections.frequency(missingItems, missingItem) == 0)
+            missingItems.add(missingItem);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.marketlist;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,27 +30,6 @@ public class ListActivity extends AppCompatActivity {
 
         itemsView = findViewById(R.id.items);
 
-
-
-        CheckBox itemCheck = ( CheckBox ) findViewById( R.id.missing_item_check );
-        itemCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                int position = (int) buttonView.getTag();
-
-                Item checkedItem = items.get(position);
-
-                if (isChecked)
-                    checkedItems.add(checkedItem);
-                else
-                    checkedItems.remove(checkedItem);
-            }
-        });
-
-
-
         items = (ArrayList<Item>) getIntent().getSerializableExtra("items");
 
         checkedItems = new ArrayList<>();
@@ -57,8 +37,28 @@ public class ListActivity extends AppCompatActivity {
         adaptador = new MissingItemAdapter(ListActivity.this, R.layout.missing_item, items);
 
         itemsView.setAdapter(adaptador);
+
+        itemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CheckBox checkBox = view.findViewById(R.id.missing_item_check);
+
+                checkBox.performClick();
+            }
+        });
     }
 
+    public void checkItem(View view)
+    {
+        int position = (int) view.getTag();
+
+        Item checkedItem = items.get(position);
+
+        if (((CheckBox) view).isChecked())
+            checkedItems.add(checkedItem);
+        else
+            checkedItems.remove(checkedItem);
+    }
 
     public void endList(View view)
     {

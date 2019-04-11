@@ -6,13 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".ListActivity">
 
+    <TextView
+        android:id="@+id/missing_items_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="38dp"
+        android:gravity="center"
+        android:text="@string/items_missing_list_header"/>
+
     <ListView
+        android:layout_below="@+id/missing_items_title"
+        android:layout_above="@+id/end_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/items"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/end_list"
+        android:layout_width="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -31,6 +31,7 @@ public class MissingItemAdapter extends ArrayAdapter<Item> {
         Item item = getItem(position);
 
         CheckBox missingItemCheck = view.findViewById(R.id.missing_item_check);
+
         TextView missingItemName = view.findViewById(R.id.list_item_name);
 
         missingItemCheck.setTag(position);
